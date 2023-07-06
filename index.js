@@ -2,6 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import knex from 'knex'
 import bcrypt from 'bcrypt-nodejs'
+import 'dotenv/config'
 
 /* CONTROLLERS */
 import handleRegister from './controllers/register.js'
@@ -12,11 +13,11 @@ import handleImage from './controllers/image.js'
 const db = knex({
   client: 'pg',
   connection: {
-    host: '127.0.0.1',
-    port: 5432,
-    user: 'postgres',
-    password: 'test',
-    database: 'smart-brain',
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
   },
 })
 
@@ -26,7 +27,7 @@ app.use(express.json())
 app.use(cors())
 
 app.get('/', (req, res) => {
-  res.send(database.users)
+  res.json('welcome to smart brain api')
 })
 
 app.post('/signin', handleSignin(db, bcrypt))
