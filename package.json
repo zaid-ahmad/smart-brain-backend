@@ -9,7 +9,7 @@
     "start:dev": "nodemon server.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Zaid Ahmad",
   "license": "ISC",
   "devDependencies": {
     "nodemon": "^2.0.22"
