@@ -34,13 +34,21 @@ app.get('/', (req, res) => {
   res.json('welcome to smart brain api')
 })
 
-app.post('/signin', handleSignin(db, bcrypt))
+app.post('/signin', (req, res) => {
+  handleSignin(req, res, db, bcrypt)
+})
 
-app.post('/register', handleRegister(db, bcrypt))
+app.post('/register', (req, res) => {
+  handleRegister(req, res, db, bcrypt)
+})
 
-app.get('/profile/:id', handleProfile())
+app.get('/profile/:id', (req, res) => {
+  handleProfile(req, res)
+})
 
-app.put('/image', handleImage(db))
+app.put('/image', (req, res) => {
+  handleImage(req, res, db)
+})
 
 app.listen(process.env.PORT, () => console.log('app is running on port 3000'))
 
