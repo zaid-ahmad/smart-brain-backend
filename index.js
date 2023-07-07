@@ -26,7 +26,7 @@ const app = express()
 app.use(express.json())
 app.use(
   cors({
-    origin: 'https://zaidahmad25.github.io/smart-brain-frontend',
+    origin: '*',
   })
 )
 
