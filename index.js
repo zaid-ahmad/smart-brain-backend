@@ -24,7 +24,11 @@ const db = knex({
 const app = express()
 
 app.use(express.json())
-app.use(cors())
+app.use(
+  cors({
+    origin: 'https://zaidahmad25.github.io/smart-brain-frontend/',
+  })
+)
 
 app.get('/', (req, res) => {
   res.json('welcome to smart brain api')
@@ -38,7 +42,7 @@ app.get('/profile/:id', handleProfile())
 
 app.put('/image', handleImage(db))
 
-app.listen(3000, () => console.log('app is running on port 3000'))
+app.listen(process.env.PORT, () => console.log('app is running on port 3000'))
 
 /*
     / --> res = this is working
