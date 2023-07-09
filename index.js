@@ -3,7 +3,6 @@ import cors from 'cors'
 import knex from 'knex'
 import bcrypt from 'bcrypt-nodejs'
 import 'dotenv/config'
-import bodyParser from 'body-parser'
 
 /* CONTROLLERS */
 import handleRegister from './controllers/register.js'
@@ -13,26 +12,15 @@ import handleImage from './controllers/image.js'
 
 const db = knex({
   client: 'pg',
-  connection: {
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-  },
+  connection: process.env.DATABASE_URL,
 })
 
 const app = express()
+const port = process.env.PORT || 3000
 
+app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(bodyParser.json())
-app.use(
-  cors({
-    origin: '*',
-  })
-)
 
 app.get('/', (req, res) => {
   res.json('welcome to smart brain api')
@@ -43,6 +31,7 @@ app.post('/signin', (req, res) => {
 })
 
 app.post('/register', (req, res) => {
+  console.log(req.body)
   handleRegister(req, res, db, bcrypt)
 })
 
@@ -54,7 +43,7 @@ app.put('/image', (req, res) => {
   handleImage(req, res, db)
 })
 
-app.listen(process.env.PORT, () => console.log('app is running on port 3000'))
+app.listen(port, () => console.log(`app is running on port ${port}`))
 
 /*
     / --> res = this is working
